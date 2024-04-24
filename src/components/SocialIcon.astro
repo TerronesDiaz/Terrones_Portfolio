@@ -1,0 +1,12 @@
+---
+const props = Astro.props;
+---
+
+<a
+  class="rounded-full border border-white/10 flex justify-center gap-x2 py-2 px-4 hover:scale-115 hover:shadow-lg transition-transform duration-200 ease-in-out dark:hover:bg-white/5 hover:bg-yellow-500"
+  {...props}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <slot />
+</a>
