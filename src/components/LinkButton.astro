@@ -1,0 +1,31 @@
+---
+// LinkButton.astro
+const { href, color = 'yellow' } = Astro.props;
+
+function colorClasses(color: string = 'yellow') {
+  switch (color) {
+    case 'red':
+      return 'bg-red-300 dark:bg-red-700 hover:bg-red-400 text-black dark:text-white';
+    case 'green':
+      return 'bg-green-300 dark:bg-green-700 hover:bg-green-400 text-black dark:text-white';
+    case 'blue':
+      return 'bg-blue-300 dark:bg-blue-700 hover:bg-blue-400 text-black dark:text-white';
+    case 'purple':
+      return 'bg-purple-300 dark:bg-purple-700 hover:bg-purple-400 text-black dark:text-white';
+    default:
+      return 'bg-yellow-300 dark:bg-yellow-700 hover:bg-yellow-400 text-black dark:text-white';
+  }
+}
+
+
+
+
+---
+
+<a
+  href={href}
+  role="link"
+  class={`inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center rounded-lg focus:ring-4 ${colorClasses(color)}`}
+>
+  <slot />
+</a>

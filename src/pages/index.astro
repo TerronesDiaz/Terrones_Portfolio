@@ -1,20 +1,32 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Badge from '../components/Badge.astro';
+import Linkedin from '../icons/Linkedin.astro';
+import Github from '../icons/GitHub.astro';
+import Mail from '../icons/Mail.astro';
+import SocialIcon from '../components/SocialIcon.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Experience from '../components/Experience.astro';
+import Briefcase from '../icons/Briefcase.astro';
+import CodeIcon from '../icons/CodeIcon.astro';
+import SectionContainer from '../components/SectionContainer.astro';
 ---
 
-<Layout title="Welcome to Astro.">
-  <main class="main-content xs: p-6">
-    <section
-      class="about-section w-full mx-auto py-12 xl:w-[1120px] "
-    >
+<Layout
+  title="Terrones Portfolio - Software Engineer and Application Developer"
+  description="Hire Terrones to make your ideas come true, make your applications and websites with the best quality and the best practices in the industry."
+>
+  <main class="main-content p-6">
+    <SectionContainer class="home-section" idSection="home">
       <div class="intro">
-        <h1 class="text-5xl font-bold flex justify-center gap-x-5 p-3 xl:text-6xl lg:text-6xl md:text-5xl">
-          <span>Hey there!  👋🏻 <br/>  I'm Terrones </span>
-		  <div class="flex flex-col items-center">
+        <h1
+          class="text-4xl font-bold flex justify-center gap-x-5 p-3 pb-6 sm:text-5xl md:text-6xl"
+        >
+          <span>Hey there! 👋🏻 <br /> I'm Terrones </span>
+          <div class="flex flex-col items-center">
             <img
-              class="rounded-full h-20 w-20  mb-2"
-              src="../media/img/Francisco_Terrones.png"
+              class="rounded-full size-20 mb-2"
+              src="../media/img/Francisco_Terrones.webp"
               alt="Terrones"
             />
             <a
@@ -28,21 +40,100 @@ import Badge from '../components/Badge.astro';
           </div>
         </h1>
 
-        <div class="flex justify-center gap-x-5 pb-3">
-          <h2 class="text-2xl text-wrap py-2">
+        <div class="flex justify-center gap-x-5 pb-6">
+          <h2 class="text-xl sm:text-2xl text-wrap py-2">
             Specialized in
-            <span class="opacity-90 text-yellow-300">
+            <span class="opacity-90 dark:text-yellow-300 text-yellow-500">
               Smart Solutions & Innovative Applications.
             </span>
             <br />
             Creating
-            <span class="opacity-90 text-yellow-300">
+            <span class="opacity-90 dark:text-yellow-300 text-yellow-500">
               high quality applications
             </span>
             from Mexico 🇲🇽 for the world.
           </h2>
         </div>
       </div>
-    </section>
+
+      <div class="flex justify-center gap-x-5 py-3">
+        <SocialIcon
+          href="https://www.linkedin.com/in/francisco-javier-terrones-diaz"
+        >
+          <Linkedin class="size-6 mr-1" />
+          <div class="hidden sm:block">LinkedIn</div>
+        </SocialIcon>
+        <SocialIcon href="https://github.com/TerronesDiaz">
+          <Github class="size-6 mr-1" />
+          <div class="hidden sm:block">GitHub</div>
+        </SocialIcon>
+        <SocialIcon href="mailto:f.terrones@outlook.com">
+          <Mail class="size-6 mr-1" />
+          <div class="hidden sm:block md:hidden">Email</div>
+          <div class="hidden md:block">f.terrones@outlook.com</div>
+        </SocialIcon>
+      </div>
+    </SectionContainer>
+
+    <SectionContainer class="experience-section" idSection="experience">
+      <h2 class="text-4xl font-bold text-left pb-6 ml-5 flex items-center">
+        <Briefcase class="size-8 mr-3" /> Experience
+      </h2>
+      <Experience />
+    </SectionContainer>
+
+    <SectionContainer class="projects-section" idSection="projects">
+      <h2 class="text-4xl font-bold text-left pb-6 ml-5 flex items-center">
+        <CodeIcon class="size-8 mr-3" /> Projects
+      </h2>
+      <ProjectCard
+        title="Terrones POS"
+        description="A Point of Sale (POS) system tailored for small and medium businesses, designed to streamline inventory management and sales processes with simplicity and efficiency."
+        link="https://demo.terronescolima.com"
+        linkText="Go to the demo"
+        buttonColor="purple"
+        image="../media/img/TerronesPWA.webp"
+      />
+
+      <ProjectCard
+        title="This Portfolio"
+        description="This portfolio was created with Astro, a new static site generator that allows you to create dynamic websites using components."
+        linkText="Code on GitHub"
+        link="https://github.com/TerronesDiaz/Terrones_Portfolio"
+        buttonColor="purple"
+        image="../media/img/Portfolio.webp"
+      />
+
+      <ProjectCard
+        title="Chatbot powered by AI"
+        description="A chatbot that uses artificial to answer questions, resolve doubts, and provide information in a friendly and efficient way."
+        link="https://terronescolima.com"
+        linkText="Code on GitHub"
+        buttonColor="purple"
+        image="../media/img/ChatBot.webp"
+      />
+    </SectionContainer>
+
+    <SectionContainer class="about-me-section" idSection="about-me">
+      <h2 class="text-4xl font-bold text-left pb-6 ml-5 flex items-center">
+        <Briefcase class="size-8 mr-3" /> About Me
+      </h2>
+      <div class="flex flex-col md:flex-row items-center">
+        <p class="text-lg text-justify md:mb-0">
+          I am a software engineer and application developer with a passion for
+          creating innovative applications that solve real-world problems. I
+          have experience in developing web applications, mobile applications,
+          and desktop applications. I am always looking to learn new
+          technologies and improve my skills to create high-quality applications
+          that meet the needs of my clients.
+        </p>
+        <img
+          class="rounded-lg ml-2 max-w-md"
+          src="../media/img/me.webp"
+          alt="Terrones"
+        />
+      </div>
+    </SectionContainer>
+    
   </main>
 </Layout>

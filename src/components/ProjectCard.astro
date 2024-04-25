@@ -1,0 +1,42 @@
+---
+import LinkButton from "./LinkButton.astro";
+interface CardProps {
+  title: string;
+  description: string;
+  link: string;
+  linkText: string;
+  buttonColor: string;
+  image: string;
+}
+
+const defaultProps: CardProps = {
+  title: 'How to quickly deploy a static website',
+  description: 'Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers.',
+  link: '#',
+  linkText: 'Read more',
+  buttonColor: 'yellow',
+  image: 'https://cdn.devdojo.com/images/july2021/hero-image.jpg',
+};
+
+const props: CardProps = { ...defaultProps, ...Astro.props };
+---
+
+<div class="py-8 px-4 lg:px-0 mx-auto max-w-full lg:py-10">
+    <div class="relative grid lg:grid-cols-5 lg:gap-10 bg-white dark:bg-neutral-950 border border-gray-300 dark:border-white-700 rounded-xl p-5">
+        <div class="p-8 lg:p-12 lg:col-span-2 order-2 lg:order-2">
+            <h1 class="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">{props.title}</h1>
+            <p class="text-lg font-normal text-gray-600 dark:text-gray-300 mb-6">{props.description}</p>
+            <LinkButton href={props.link} color={props.buttonColor}>{props.linkText}</LinkButton>
+        </div>
+
+        <!-- Image container - dynamic display -->
+        <div class="sm:block lg:col-span-3 bg-cover bg-center rounded-b-xl lg:rounded-l-xl lg:rounded-r-none order-1 lg:order-1" style={`background-image: url('${props.image}');`}>
+            <!-- Image only for sm and below, shown below content -->
+            <img src={props.image} class="lg:hidden w-full rounded-b-xl" alt="Hero image" />
+        </div>
+    </div>
+</div>
+
+
+
+
