@@ -3,7 +3,14 @@ export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	darkMode: 'media', 
 	theme: {
-		extend: {},
+	  extend: {
+		colors: {
+		  transparentGray: 'rgba(0, 0, 0, 0.6)',
+		  transparentWhite: 'rgba(255, 255, 255, 0.6)',
+		  transparentBlack: 'rgba(0, 0, 0, 0.6)', 
+		},
+	  },
 	},
 	plugins: [],
-}
+  }
+  

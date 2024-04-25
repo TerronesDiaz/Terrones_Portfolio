@@ -25,7 +25,7 @@ const props: CardProps = { ...defaultProps, ...Astro.props };
     <div class="relative grid lg:grid-cols-5 lg:gap-10 bg-white dark:bg-neutral-950 border border-gray-300 dark:border-white-700 rounded-xl p-5">
         <div class="p-8 lg:p-12 lg:col-span-2 order-2 lg:order-2">
             <h1 class="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">{props.title}</h1>
-            <p class="text-lg font-normal text-gray-600 dark:text-gray-300 mb-6">{props.description}</p>
+            <p class="text-xl md:text-lg font-normal text-gray-600 dark:text-gray-300 mb-6">{props.description}</p>
             <LinkButton href={props.link} color={props.buttonColor}>{props.linkText}</LinkButton>
         </div>
 

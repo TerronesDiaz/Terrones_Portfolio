@@ -16,11 +16,11 @@ import SectionContainer from '../components/SectionContainer.astro';
   title="Terrones Portfolio - Software Engineer and Application Developer"
   description="Hire Terrones to make your ideas come true, make your applications and websites with the best quality and the best practices in the industry."
 >
-  <main class="main-content p-6">
-    <SectionContainer class="home-section" idSection="home">
-      <div class="intro">
+  <main class="main-content p-6 w-full ">
+    <SectionContainer className="home-section" idSection="home">
+      <div class="intro mt-14">
         <h1
-          class="text-4xl font-bold flex justify-center gap-x-5 p-3 pb-6 sm:text-5xl md:text-6xl"
+          class="text-5xl md:text-6xl font-bold flex justify-center gap-x-5 md:p-3 pb-6 mb-4"
         >
           <span>Hey there! 👋🏻 <br /> I'm Terrones </span>
           <div class="flex flex-col items-center">
@@ -40,8 +40,8 @@ import SectionContainer from '../components/SectionContainer.astro';
           </div>
         </h1>
 
-        <div class="flex justify-center gap-x-5 pb-6">
-          <h2 class="text-xl sm:text-2xl text-wrap py-2">
+        <div class="flex justify-center gap-x-5 pb-10">
+          <h2 class="text-3xl md:2xl text-wrap py-2 text-justify">
             Specialized in
             <span class="opacity-90 dark:text-yellow-300 text-yellow-500">
               Smart Solutions & Innovative Applications.
@@ -56,34 +56,34 @@ import SectionContainer from '../components/SectionContainer.astro';
         </div>
       </div>
 
-      <div class="flex justify-center gap-x-5 py-3">
+      <div class="flex justify-center gap-x-8 py-3">
         <SocialIcon
           href="https://www.linkedin.com/in/francisco-javier-terrones-diaz"
         >
-          <Linkedin class="size-6 mr-1" />
+          <Linkedin class="size-12 md:size-7 mr-1" />
           <div class="hidden sm:block">LinkedIn</div>
         </SocialIcon>
         <SocialIcon href="https://github.com/TerronesDiaz">
-          <Github class="size-6 mr-1" />
+          <Github class="size-12 md:size-7 mr-1" />
           <div class="hidden sm:block">GitHub</div>
         </SocialIcon>
         <SocialIcon href="mailto:f.terrones@outlook.com">
-          <Mail class="size-6 mr-1" />
+          <Mail class="size-12 md:size-7 mr-1" />
           <div class="hidden sm:block md:hidden">Email</div>
           <div class="hidden md:block">f.terrones@outlook.com</div>
         </SocialIcon>
       </div>
     </SectionContainer>
 
-    <SectionContainer class="experience-section" idSection="experience">
-      <h2 class="text-4xl font-bold text-left pb-6 ml-5 flex items-center">
+    <SectionContainer className="experience-section" idSection="experience">
+      <h2 class="text-4xl font-bold text-left pt-8 ml-5 flex items-center">
         <Briefcase class="size-8 mr-3" /> Experience
       </h2>
       <Experience />
     </SectionContainer>
 
-    <SectionContainer class="projects-section" idSection="projects">
-      <h2 class="text-4xl font-bold text-left pb-6 ml-5 flex items-center">
+    <SectionContainer className="projects-section" idSection="projects">
+      <h2 class="text-4xl font-bold text-left pt-8 ml-5 flex items-center">
         <CodeIcon class="size-8 mr-3" /> Projects
       </h2>
       <ProjectCard
@@ -114,12 +114,12 @@ import SectionContainer from '../components/SectionContainer.astro';
       />
     </SectionContainer>
 
-    <SectionContainer class="about-me-section" idSection="about-me">
-      <h2 class="text-4xl font-bold text-left pb-6 ml-5 flex items-center">
+    <SectionContainer className="about-me-section" idSection="about-me">
+      <h2 class="text-4xl font-bold text-left pt-8 pb-2 ml-5 flex items-center">
         <Briefcase class="size-8 mr-3" /> About Me
       </h2>
       <div class="flex flex-col md:flex-row items-center">
-        <p class="text-lg text-justify md:mb-0">
+        <p class="text-xl md:text-lg text-justify md:mb-0">
           I am a software engineer and application developer with a passion for
           creating innovative applications that solve real-world problems. I
           have experience in developing web applications, mobile applications,
