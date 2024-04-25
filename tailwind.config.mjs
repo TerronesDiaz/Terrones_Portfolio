@@ -6,7 +6,7 @@ export default {
 	  extend: {
 		colors: {
 		  transparentGray: 'rgba(0, 0, 0, 0.6)',
-		  transparentWhite: 'rgba(255, 255, 255, 0.6)',
+		  transparentWhite: 'rgba(255, 255, 255, 0.8)',
 		  transparentBlack: 'rgba(0, 0, 0, 0.6)', 
 		},
 	  },
