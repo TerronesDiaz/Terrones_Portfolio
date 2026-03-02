@@ -2,6 +2,8 @@
 // LinkButton.astro
 const { href, color = 'yellow' } = Astro.props;
 
+const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
+
 function colorClasses(color: string = 'yellow') {
   switch (color) {
     case 'red':
@@ -26,6 +28,8 @@ function colorClasses(color: string = 'yellow') {
   href={href}
   role="link"
   class={`inline-flex justify-center items-center py-2.5 px-5 ml-14 mt-6 text-xl md:text-lg text-center rounded-lg focus:ring-4 ${colorClasses(color)}`}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
 >
   <slot />
 </a>
