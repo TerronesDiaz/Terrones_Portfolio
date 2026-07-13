@@ -39,7 +39,7 @@ jobs:
           git fetch --no-tags origin main
           test "$(git rev-parse origin/main)" = "$DEPLOY_SHA"
           docker build --build-arg VCS_REF="$DEPLOY_SHA" --tag "terrones-portfolio:$DEPLOY_SHA" .
-          test "$(docker image inspect --format '{{index .Config.Labels \"org.opencontainers.image.revision\"}}' "terrones-portfolio:$DEPLOY_SHA")" = "$DEPLOY_SHA"
+          test "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "terrones-portfolio:$DEPLOY_SHA")" = "$DEPLOY_SHA"
       - name: Package verified release
         run: |
           set -euo pipefail
