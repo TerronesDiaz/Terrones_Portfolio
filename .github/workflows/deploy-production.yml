@@ -1,0 +1,68 @@
+name: Deploy production
+
+on:
+  workflow_run:
+    workflows: [Container CI]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: terrones-portfolio-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
+      PROD_HOST: 148.113.180.61
+      PROD_PORT: "57910"
+      PROD_USER: ubuntu
+
+    steps:
+      - name: Check out validated revision
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          fetch-depth: 0
+          ref: ${{ env.DEPLOY_SHA }}
+      - name: Reject obsolete workflow and build image
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main
+          test "$(git rev-parse origin/main)" = "$DEPLOY_SHA"
+          docker build --build-arg VCS_REF="$DEPLOY_SHA" --tag "terrones-portfolio:$DEPLOY_SHA" .
+          test "$(docker image inspect --format '{{index .Config.Labels \"org.opencontainers.image.revision\"}}' "terrones-portfolio:$DEPLOY_SHA")" = "$DEPLOY_SHA"
+      - name: Package verified release
+        run: |
+          set -euo pipefail
+          git switch --force-create main "$DEPLOY_SHA"
+          git bundle create source.bundle main
+          git bundle verify source.bundle
+          docker save "terrones-portfolio:$DEPLOY_SHA" | gzip -9 > images.tar.gz
+          printf 'REPOSITORY=TerronesDiaz/Terrones_Portfolio\nREVISION=%s\nIMAGES=terrones-portfolio:%s\n' "$DEPLOY_SHA" "$DEPLOY_SHA" > release.env
+          sha256sum images.tar.gz release.env source.bundle > SHA256SUMS
+          tar -cf release.tar SHA256SUMS images.tar.gz release.env source.bundle
+      - name: Configure restricted SSH identity
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.PROD_SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          test -n "$SSH_PRIVATE_KEY" && test -n "$SSH_KNOWN_HOSTS"
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$SSH_PRIVATE_KEY" > "$HOME/.ssh/production_deploy"
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/production_deploy" "$HOME/.ssh/known_hosts"
+          ssh-keygen -y -f "$HOME/.ssh/production_deploy" >/dev/null
+      - name: Stream release and deploy
+        run: |
+          set -euo pipefail
+          ssh -i "$HOME/.ssh/production_deploy" -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$HOME/.ssh/known_hosts" -p "$PROD_PORT" "$PROD_USER@$PROD_HOST" < release.tar

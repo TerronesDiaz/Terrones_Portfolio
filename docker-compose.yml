@@ -1,0 +1,29 @@
+name: terrones-portfolio
+
+services:
+  portfolio:
+    image: ${PORTFOLIO_IMAGE:-terrones-portfolio:local}
+    build: .
+    ports:
+      - "${PORTFOLIO_BIND_ADDRESS:-127.0.0.1}:${PORTFOLIO_PORT:-8091}:80"
+    networks:
+      edge:
+        aliases:
+          - portfolio
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+networks:
+  edge:
+    external: true
+    name: terrones-edge

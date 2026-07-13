@@ -1,0 +1,32 @@
+name: Container CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.22.0
+          cache: npm
+      - run: npm ci
+      - run: npm audit --omit=dev --audit-level=high
+      - run: npm run build
+      - run: docker build --tag terrones-portfolio:${{ github.sha }} .
+      - name: Smoke test image
+        run: |
+          docker run -d --rm --name portfolio-test -p 127.0.0.1:18091:80 terrones-portfolio:${{ github.sha }}
+          for attempt in $(seq 1 20); do
+            curl -fsS http://127.0.0.1:18091/ | grep -q 'Terrones Portfolio' && exit 0
+            sleep 1
+          done
+          docker logs portfolio-test
+          exit 1
