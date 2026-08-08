@@ -1,10 +1,86 @@
-<header class="sticky top-0 z-50 flex justify-center items-center py-6 mx-auto w-full max-w-screen-xl bg-transparentWhite dark:bg-transparentGray rounded-3xl md:rounded-2xl text-xl">
-    <nav class="flex flex-row gap-x-6 md:gap-x-10 lg:gap-x-12">
-        <a href="#home" class="opacity-75 hover:opacity-100">Home</a>
-        <a href="#experience" class="opacity-75 hover:opacity-100">Experience</a>
-        <a href="#projects" class="opacity-75 hover:opacity-100">Projects</a>
-        <a href="#about-me" class="opacity-75 hover:opacity-100">About Me</a>
-        <a href="https://wa.me/3121111440?text=Hola%2C%20Terrones%2C%20buen%20d%C3%ADa.
-        " class="opacity-75 hover:opacity-100">Contact</a>
-    </nav>
+---
+import type { PortfolioContent } from '../data/portfolio';
+
+interface Props {
+  content: PortfolioContent;
+  alternate: string;
+}
+
+const { content, alternate } = Astro.props;
+---
+
+<header class="site-header" data-site-header>
+  <nav class="nav-shell" aria-label={content.nav.label}>
+    <a class="brand" href={content.path} aria-label="FT — Francisco Terrones">
+      <span class="brand-mark" aria-hidden="true">FT</span>
+      <span class="brand-name">Francisco Terrones</span>
+    </a>
+
+    <div class="desktop-nav">
+      {content.nav.links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </div>
+
+    <div class="nav-actions">
+      <label class="theme-control">
+        <span class="sr-only">{content.nav.themeLabel}</span>
+        <select data-theme-select aria-label={content.nav.themeLabel}>
+          <option value="system">{content.nav.themes.system}</option>
+          <option value="light">{content.nav.themes.light}</option>
+          <option value="dark">{content.nav.themes.dark}</option>
+        </select>
+      </label>
+
+      <a class="language-switch" href={alternate} lang={content.locale === 'es' ? 'en' : 'es'} aria-label={`${content.nav.languageShort} — ${content.nav.languageLabel}`}>
+        {content.nav.languageShort}
+      </a>
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-navigation"
+        aria-label={content.nav.menu}
+        data-menu-toggle
+        data-open-label={content.nav.menu}
+        data-close-label={content.nav.close}
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" id="mobile-navigation" hidden data-mobile-nav>
+    {content.nav.links.map((link) => <a href={link.href}>{link.label}</a>)}
+  </div>
 </header>
+
+<script is:inline>
+  (() => {
+    document.querySelectorAll('[data-site-header]').forEach((header) => {
+      const button = header.querySelector('[data-menu-toggle]');
+      const menu = header.querySelector('[data-mobile-nav]');
+      if (!button || !menu) return;
+
+      const close = () => {
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', button.dataset.openLabel || 'Open menu');
+        menu.hidden = true;
+      };
+
+      button.addEventListener('click', () => {
+        const isOpen = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', String(!isOpen));
+        button.setAttribute('aria-label', isOpen ? button.dataset.openLabel : button.dataset.closeLabel);
+        menu.hidden = isOpen;
+      });
+
+      menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          close();
+          button.focus();
+        }
+      });
+    });
+  })();
+</script>

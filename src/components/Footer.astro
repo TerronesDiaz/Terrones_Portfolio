@@ -1,3 +1,17 @@
-<footer class="py-10">
-    <p class="text-center">© 2024 Francisco Javier Terrones Díaz</p>
+---
+import type { PortfolioContent } from '../data/portfolio';
+
+interface Props {
+  content: PortfolioContent;
+}
+
+const { content } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>© {year} Francisco Javier Terrones Díaz</p>
+    <p>{content.footer}</p>
+  </div>
 </footer>
