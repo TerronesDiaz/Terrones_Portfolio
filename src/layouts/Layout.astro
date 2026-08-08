@@ -1,52 +1,94 @@
 ---
-interface Props {
-	title: string;
-	description: string;
-}
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import type { PortfolioContent } from '../data/portfolio';
+import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
-const { title, description } = Astro.props;
+import '@fontsource/roboto/700.css';
+import '../styles/global.css';
+
+interface Props {
+  content: PortfolioContent;
+}
+
+const { content } = Astro.props;
+const canonical = new URL(content.path, Astro.site);
+const alternate = new URL(content.alternatePath, Astro.site);
+const socialImage = new URL('/og.png', Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<div class="absolute top-0 z-[0] md:w-screen dark:bg-neutral-950 bg-neutral-100 bg-[radial-gradient(ellipse_80%_80%_at_40%_10%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
-		<Header />
-		<slot />
-		<Footer />
-	</div>
-	</body>
+<html lang={content.locale} data-theme="light" data-theme-preference="system">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={content.meta.description} />
+    <meta name="theme-color" content="#071426" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es-MX" href={new URL('/', Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL('/en/', Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Francisco Terrones" />
+    <meta property="og:title" content={content.meta.title} />
+    <meta property="og:description" content={content.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:locale" content={content.locale === 'es' ? 'es_MX' : 'en_US'} />
+    <meta property="og:locale:alternate" content={content.locale === 'es' ? 'en_US' : 'es_MX'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={content.meta.title} />
+    <meta name="twitter:description" content={content.meta.description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{content.meta.title}</title>
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem('portfolio-theme');
+        const preference = stored === 'light' || stored === 'dark' ? stored : 'system';
+        const dark = preference === 'dark' ||
+          (preference === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.documentElement.dataset.themePreference = preference;
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">
+      {content.locale === 'es' ? 'Saltar al contenido' : 'Skip to content'}
+    </a>
+    <div class="site-shell">
+      <Header content={content} alternate={alternate.pathname} />
+      <slot />
+      <Footer content={content} />
+    </div>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const media = matchMedia('(prefers-color-scheme: dark)');
+        const applyTheme = (preference) => {
+          const dark = preference === 'dark' || (preference === 'system' && media.matches);
+          root.dataset.theme = dark ? 'dark' : 'light';
+          root.dataset.themePreference = preference;
+          document.querySelectorAll('[data-theme-select]').forEach((select) => {
+            select.value = preference;
+          });
+        };
+
+        document.querySelectorAll('[data-theme-select]').forEach((select) => {
+          select.value = root.dataset.themePreference || 'system';
+          select.addEventListener('change', (event) => {
+            const preference = event.currentTarget.value;
+            localStorage.setItem('portfolio-theme', preference);
+            applyTheme(preference);
+          });
+        });
+
+        media.addEventListener('change', () => {
+          if ((root.dataset.themePreference || 'system') === 'system') applyTheme('system');
+        });
+      })();
+    </script>
+  </body>
 </html>
-<style is:global>
-	:root {
-		color-scheme: light dark;	
-	}
-	html {
-		scroll-behavior: smooth;
-		font-family: 'Roboto', sans-serif;
-	}
-
-	body {
-		background: #000000;
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		html {
-			scroll-behavior: auto;
-		}
-	}
-
-</style>
