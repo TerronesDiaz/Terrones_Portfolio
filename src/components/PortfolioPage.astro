@@ -38,6 +38,10 @@ const ids = content.locale === 'es'
         </div>
 
         <div class="hero-visual">
+          <div class="availability-card">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>{content.hero.availability}</span>
+          </div>
           <div class="portrait-frame">
             <img
               src="/media/img/Francisco_Terrones.webp"
@@ -46,10 +50,6 @@ const ids = content.locale === 'es'
               height="640"
               fetchpriority="high"
             />
-            <div class="availability-card">
-              <span class="status-dot" aria-hidden="true"></span>
-              <span>{content.hero.availability}</span>
-            </div>
           </div>
           <dl class="proof-grid">
             {content.hero.proof.map((item) => (
