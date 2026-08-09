@@ -287,6 +287,10 @@ img {
   color: var(--text);
 }
 
+.mobile-theme-control {
+  display: none;
+}
+
 .section {
   width: min(1120px, calc(100% - 2rem));
   margin: 0 auto;
@@ -897,35 +901,83 @@ img {
   }
 
   .site-header {
-    padding-top: 0.6rem;
+    position: relative;
+    top: auto;
+    padding-top: 0.55rem;
   }
 
   .nav-shell {
-    min-height: 4rem;
-    padding: 0.5rem;
-    border-radius: 1rem;
+    min-height: 3.5rem;
+    padding: 0.35rem;
+    border-radius: 0.9rem;
   }
 
   .brand-name {
     display: none;
   }
 
-  .theme-control select {
-    max-width: 5.3rem;
-    padding-inline: 0.35rem;
-    font-size: 0.75rem;
+  .brand-mark {
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 0.72rem;
+  }
+
+  .header-theme-control {
+    display: none;
   }
 
   .nav-actions {
-    gap: 0.35rem;
+    gap: 0.4rem;
+  }
+
+  .language-switch,
+  .menu-toggle {
+    min-height: 42px;
+    width: 42px;
+  }
+
+  .mobile-nav {
+    margin-top: 0.4rem;
+    padding: 0.5rem;
+    border-radius: 0.9rem;
+  }
+
+  .mobile-theme-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 52px;
+    margin-top: 0.25rem;
+    padding: 0.35rem 0.45rem 0.35rem 0.8rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.86rem;
+    font-weight: 600;
+  }
+
+  .mobile-theme-control select {
+    min-height: 42px;
+    max-width: 7.2rem;
+    padding-inline: 0.65rem;
+    border: 1px solid var(--line);
+    border-radius: 0.72rem;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
   }
 
   .section {
-    padding: 4.5rem 0;
+    padding: 4rem 0;
   }
 
   .hero {
-    padding-top: 4rem;
+    padding-top: 2.75rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .hero-grid {
+    gap: 2.5rem;
   }
 
   .hero h1 {
@@ -934,23 +986,77 @@ img {
 
   .hero-actions {
     flex-direction: column;
+    margin-top: 1.5rem;
   }
 
   .button {
     width: 100%;
   }
 
+  .specialty-list {
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+  }
+
+  .specialty-list li {
+    padding: 0.4rem 0.62rem;
+    font-size: 0.76rem;
+  }
+
+  .hero-visual {
+    width: 100%;
+  }
+
   .portrait-frame {
-    width: calc(100% - 1rem);
+    width: min(calc(100% - 2.5rem), 20rem);
+    padding: 0.45rem;
+    border-radius: 1.6rem;
+    transform: rotate(0.6deg);
+  }
+
+  .portrait-frame::before {
+    inset: 14% -5% -5% 16%;
+    border-radius: 1.6rem;
+  }
+
+  .portrait-frame img {
+    border-radius: 1.2rem;
   }
 
   .availability-card {
-    right: -0.4rem;
-    font-size: 0.78rem;
+    right: auto;
+    bottom: -0.85rem;
+    left: 50%;
+    width: max-content;
+    max-width: calc(100% - 1rem);
+    padding: 0.62rem 0.75rem;
+    font-size: 0.74rem;
+    white-space: nowrap;
+    transform: translateX(-50%) rotate(-0.6deg);
   }
 
   .proof-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    width: 100%;
+    margin-top: 2.8rem;
+  }
+
+  .proof-grid div {
+    min-width: 0;
+    padding: 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: 0.9rem;
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+  }
+
+  .proof-grid dt {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  .proof-grid dd {
+    font-size: 0.88rem;
   }
 
   .timeline-item article {

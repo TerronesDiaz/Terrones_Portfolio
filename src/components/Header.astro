@@ -21,7 +21,7 @@ const { content, alternate } = Astro.props;
     </div>
 
     <div class="nav-actions">
-      <label class="theme-control">
+      <label class="theme-control header-theme-control">
         <span class="sr-only">{content.nav.themeLabel}</span>
         <select data-theme-select aria-label={content.nav.themeLabel}>
           <option value="system">{content.nav.themes.system}</option>
@@ -51,6 +51,14 @@ const { content, alternate } = Astro.props;
 
   <div class="mobile-nav" id="mobile-navigation" hidden data-mobile-nav>
     {content.nav.links.map((link) => <a href={link.href}>{link.label}</a>)}
+    <label class="mobile-theme-control">
+      <span>{content.nav.themeLabel}</span>
+      <select data-theme-select aria-label={content.nav.themeLabel}>
+        <option value="system">{content.nav.themes.system}</option>
+        <option value="light">{content.nav.themes.light}</option>
+        <option value="dark">{content.nav.themes.dark}</option>
+      </select>
+    </label>
   </div>
 </header>
 
