@@ -422,16 +422,34 @@ img {
 }
 
 .portrait-frame {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   width: 100%;
   border: 1px solid var(--line-strong);
   background: var(--surface);
 }
 
+.portrait-frame::before {
+  position: absolute;
+  inset: -12%;
+  z-index: 0;
+  background:
+    linear-gradient(color-mix(in srgb, var(--surface) 24%, transparent), color-mix(in srgb, var(--surface) 24%, transparent)),
+    url('/media/img/Francisco_Terrones.webp') center / cover no-repeat;
+  content: "";
+  filter: blur(20px) saturate(0.72);
+  opacity: 0.62;
+  transform: scale(1.08);
+}
+
 .portrait-frame img {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: center 32%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
   filter: saturate(0.88) contrast(1.02);
 }
 
@@ -790,10 +808,6 @@ img {
     margin: 0;
   }
 
-  .portrait-frame img {
-    aspect-ratio: 16 / 10;
-  }
-
   .project-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -921,8 +935,7 @@ img {
   }
 
   .portrait-frame img {
-    aspect-ratio: 4 / 3;
-    object-position: center 30%;
+    aspect-ratio: 1;
   }
 
   .proof-grid {
