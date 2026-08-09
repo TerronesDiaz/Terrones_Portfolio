@@ -909,7 +909,15 @@ img {
   }
 
   .availability-card {
+    width: min(100%, 18rem);
+    margin-right: auto;
     margin-bottom: 0.65rem;
+    margin-left: auto;
+  }
+
+  .portrait-frame {
+    width: min(100%, 18rem);
+    margin-inline: auto;
   }
 
   .portrait-frame img {
