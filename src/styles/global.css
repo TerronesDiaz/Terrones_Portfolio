@@ -758,6 +758,32 @@ img {
   margin: 0;
 }
 
+@media (min-width: 1440px) {
+  .nav-shell,
+  .section,
+  .footer-inner {
+    width: min(1320px, calc(100% - 5rem));
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(30rem, 0.9fr);
+    gap: clamp(4rem, 6vw, 7rem);
+  }
+
+  .hero h1 {
+    font-size: clamp(4.9rem, 4.8vw, 5.9rem);
+  }
+
+  .hero-visual {
+    width: min(100%, 32rem);
+    margin-inline: auto;
+  }
+
+  .portrait-frame {
+    width: min(100%, 26rem);
+  }
+}
+
 @media (max-width: 940px) {
   .desktop-nav {
     display: none;
