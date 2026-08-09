@@ -646,6 +646,11 @@ img {
   border-top: 1px solid var(--line-strong);
 }
 
+.about-image {
+  width: min(100%, 20rem);
+  justify-self: center;
+}
+
 .about-image img {
   width: 100%;
   height: auto;
@@ -830,7 +835,7 @@ img {
   }
 
   .about-image {
-    width: min(100%, 34rem);
+    width: min(100%, 18rem);
   }
 
   .contact-section {
@@ -1012,7 +1017,7 @@ img {
   }
 
   .about-image {
-    width: 100%;
+    width: min(100%, 14rem);
   }
 
   .about-details {
