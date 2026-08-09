@@ -428,15 +428,13 @@ img {
 }
 
 .portrait-frame {
-  width: 100%;
+  width: min(100%, 22rem);
+  margin-left: auto;
 }
 
 .portrait-frame img {
   width: 100%;
-  aspect-ratio: 1;
-  object-fit: contain;
-  object-position: center;
-  filter: saturate(0.88) contrast(1.02);
+  height: auto;
 }
 
 .proof-grid {
@@ -916,12 +914,8 @@ img {
   }
 
   .portrait-frame {
-    width: min(100%, 18rem);
+    width: min(100%, 14rem);
     margin-inline: auto;
-  }
-
-  .portrait-frame img {
-    aspect-ratio: 1;
   }
 
   .proof-grid {
