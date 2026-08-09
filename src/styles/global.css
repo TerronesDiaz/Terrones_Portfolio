@@ -216,6 +216,12 @@ img {
   cursor: pointer;
 }
 
+.theme-control option,
+.mobile-theme-control option {
+  background: var(--surface-strong);
+  color: var(--text);
+}
+
 .language-switch {
   display: grid;
   place-items: center;
@@ -422,30 +428,10 @@ img {
 }
 
 .portrait-frame {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
   width: 100%;
-  border: 1px solid var(--line-strong);
-  background: var(--surface);
-}
-
-.portrait-frame::before {
-  position: absolute;
-  inset: -12%;
-  z-index: 0;
-  background:
-    linear-gradient(color-mix(in srgb, var(--surface) 24%, transparent), color-mix(in srgb, var(--surface) 24%, transparent)),
-    url('/media/img/Francisco_Terrones.webp') center / cover no-repeat;
-  content: "";
-  filter: blur(20px) saturate(0.72);
-  opacity: 0.62;
-  transform: scale(1.08);
 }
 
 .portrait-frame img {
-  position: relative;
-  z-index: 1;
   width: 100%;
   aspect-ratio: 1;
   object-fit: contain;
