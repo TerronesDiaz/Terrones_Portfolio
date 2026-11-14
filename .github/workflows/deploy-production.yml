@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 30
     env:
       DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
-      PROD_HOST: 148.113.180.61
+      PROD_HOST: 13.140.243.182
       PROD_PORT: "57910"
       PROD_USER: ubuntu
 
