@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       - uses: actions/setup-node@v6
         with:
-          node-version: 22.22.0
+          node-version: 22.23.5
           cache: npm
       - run: npm ci
       - run: npm audit --audit-level=moderate
